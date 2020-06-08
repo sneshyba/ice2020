@@ -11,3 +11,5 @@ pip install numpy-stl
 
 As documented in the folder “nml code”:
 pip install f90nml
+
+This is work done by Kayden Lynch and Steven Neshyba 2020
