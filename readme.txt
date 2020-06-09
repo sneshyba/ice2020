@@ -13,3 +13,8 @@ As documented in the folder “nml code”:
 pip install f90nml
 
 This is work done by Kayden Lynch and Steven Neshyba 2020.
+
+Data flow
+
+GNBF_makextlvecs.ipynb
+    Loads an immage of a smooth ice crystal and creates a namelist file Xtlvecs.nml
