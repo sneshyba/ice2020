@@ -17,4 +17,7 @@ This is work done by Kayden Lynch and Steven Neshyba 2020.
 Data flow
 
 GNBF_makextlvecs.ipynb
-    Loads an immage of a smooth ice crystal and creates a namelist file Xtlvecs.nml
+    Loads an image of a smooth ice crystal and creates a namelist file Xtlvecs.nml
+
+GNBF_calibrate_from_Xtlvecs.ipynb
+    Loads Xtlvecs.nml and creates a calibration file calibration.nml
