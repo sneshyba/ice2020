@@ -947,10 +947,14 @@ def retrievesegment(\
     # Pack these into a vector
     nXobs = np.size(cA_obs)
     caxis = 0 # This was 1
-    cA_obs_long = reshape(cA_obs,nXobs,caxis)
-    cB_obs_long = reshape(cB_obs,nXobs,caxis)
-    cC_obs_long = reshape(cC_obs,nXobs,caxis)
-    cD_obs_long = reshape(cD_obs,nXobs,caxis)
+#     cA_obs_long = reshape(cA_obs,nXobs,caxis) # Deprecated
+#     cB_obs_long = reshape(cB_obs,nXobs,caxis)
+#     cC_obs_long = reshape(cC_obs,nXobs,caxis)
+#     cD_obs_long = reshape(cD_obs,nXobs,caxis)
+    cA_obs_long = cA_obs.flatten(order="C")
+    cB_obs_long = cB_obs.flatten(order="C")
+    cC_obs_long = cC_obs.flatten(order="C")
+    cD_obs_long = cD_obs.flatten(order="C")
     c_obs_stacked = vstack((cA_obs_long,cB_obs_long,cC_obs_long,cD_obs_long))
     c_obs_long = matrix(reshape(c_obs_stacked.T,(nXobs*4,1)), copy=False)
 
