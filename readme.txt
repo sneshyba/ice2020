@@ -25,7 +25,7 @@ Output: calibration.nml (slopes and intercepts)
 Notes: The slopes and intercepts define the response of each of four detectors to the s-variable.
 
 GNBF_retrieve 
-Inputs: calibration.nml, segments.nml
+Inputs: calibration.nml, segments.nml, SEM immages
 Outputs: Segments_compr.npz, Segments_retrieved.jpg
 Notes: The output .npz file contains the surface morphology of the segments.
 
