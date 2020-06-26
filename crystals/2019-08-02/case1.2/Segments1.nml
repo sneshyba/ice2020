@@ -3,7 +3,7 @@
     nxsegments = 4
     nacross = 35
     ndown = 35
-    nxstart = 750
-    ny1start = 350    
+    nxstart = 500
+    ny1start = 400    
 /
 
