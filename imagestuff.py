@@ -343,6 +343,54 @@ def extractflat(npzfile,dx,dy):
         
     return xseggridtot, yseggridtot, zseggridtot, surf_xseggridtot, surf_yseggridtot, surf_zseggridtot
 
+def extractdots(npzfile,dx,dy):
+    
+    # Extracting each segment
+    nx1list = npzfile['nx1list']
+    nx2list = npzfile['nx2list']
+    ny1list = npzfile['ny1list']
+    ny2list = npzfile['ny2list']
+    solution = npzfile['solution']
+    nsegments = len(nx1list)
+    xseggridtot = []
+    yseggridtot = []
+    zseggridtot = []
+    surf_xseggridtot = []
+    surf_yseggridtot = []
+    surf_zseggridtot = []
+    
+    Normal_list = []
+    for isegment in range(0,nsegments):
+
+        # Extract this segment
+        nx1=nx1list[isegment]; nx2=nx2list[isegment]; nxsegment = nx2-nx1+1
+        ny1=ny1list[isegment]; ny2=ny2list[isegment]; nysegment = ny2-ny1+1
+        surf_xseg = np.linspace(0,(nxsegment-1)*dx,nxsegment); 
+        surf_yseg = np.linspace(0,(nysegment-1)*dy,nysegment); 
+        surf_xseggrid, surf_yseggrid = np.meshgrid(surf_xseg,surf_yseg) # 1st index is y, 2nd is x
+        surf_zseggrid = copy.copy(np.flipud(solution[ny1:ny2+1,nx1:nx2+1])) # This flips the y-coordinate
+
+        # Fit a plane to the data and adjust data to start at the origin
+        m = polyfit2d(\
+                      surf_xseggrid.reshape(nysegment*nxsegment), \
+                      surf_yseggrid.reshape(nysegment*nxsegment), \
+                      surf_zseggrid.reshape(nysegment*nxsegment), \
+                      linear=True,order=1)
+
+        # Find the normal vectors to each best-fit plane segment
+        Normal = np.matrix([-m[2],-m[1],1])
+        Normal /= np.linalg.norm(Normal)
+        Normal_list.append(Normal)
+
+    # Find the cosine of the angle between each pair of planes
+    for i in range(0,nsegments):
+        for j in range(i+1,nsegments):
+            dotprod = np.asscalar(np.dot(Normal_list[i],Normal_list[j].T))
+            print(i,j,dotprod,np.arccos(dotprod)/np.pi*180)
+    return
+
+    
+
 class ExtlvecxAngleManager:
     def __init__(self, xorigin=0,yorigin=0,alpha=0,beta=0,gamma=0,scale=200):
         # Specify the origin and Euler angles
